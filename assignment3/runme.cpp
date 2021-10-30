@@ -7,24 +7,20 @@
 using namespace std;
 
 int main(int argc, char *argv[]){
-  ifstream fin("testfile.dat");
-  ofstream fout("testfile.dat");
-  fin.open("testfile.dat", fstream::app);
+  ifstream fin("testfile.dat",ios::in | ios::out);
+  ofstream fout("testfile.dat",ios::app);
   stack<string> moves;
-  if(!fin.is_open()) {
-    cout << "testfile.dat closed";
-  } else {
-      while (!fin.eof()) {
-        string s;
-        getline(fin, s);
-        moves.push(s);
-      }
       if (strcmp(argv[2], "zero") == 0) {
       		cout << "silent";
     	} else {
         	fout << argv[2] << "\n";
+	        string s;
+	        while (getline(fin, s)) {
+     		   moves.push(s);
+     		 }
         	cout << moves.top();
       	}
-    }
-	return 0;
+  fin.close();
+  fout.close();
+  return 0;
 }
